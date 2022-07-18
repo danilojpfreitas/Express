@@ -1,7 +1,9 @@
 # Express
 Aprendendo a utilizar o Express
 
-#Banco de Dados
+# Banco de Dados
+
+```
 CREATE TABLE produtos (
 id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
 nome VARCHAR(200) NOT NULL,
@@ -35,3 +37,4 @@ CONSTRAINT item_produto FOREIGN KEY (produto_id) REFERENCES produtos(id),
 createdAt DATE NOT NULL,
 updatedAt DATE NOT NULL
 );
+```
