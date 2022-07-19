@@ -6,13 +6,20 @@ const produtoController = require("../controllers/produtoController")
 const fabricanteController = require("../controllers/fabricanteController")
 const categoriaController = require("../controllers/categoriaController")
 const usuariosController = require("../controllers/usuariosController")
+const authController = require("../controllers/authController")
 
 // middlewares em uma unica rota
 const requestLog = require("../middlewares/requestLog");
 const bloqueio = require("../middlewares/bloqueio");
 
 // importando validations
-const usuarioCreateValidation = require("../validations/usuarios/create")
+const usuarioCreateValidation = require("../validations/usuarios/create");
+
+// importando authLogin Validation
+const authLoginValidation = require("../validations/usuarios/auth/login");
+
+// importando middlewar auth
+const auth = require("../middlewares/auth");
 
 // ativar o recurso de rotas
 const routes = express.Router()
@@ -25,7 +32,7 @@ routes.get("/", (req, res) => {
 
 routes.get("/produtos", requestLog, bloqueio, produtoController.listarProduto);
 
-routes.post("/produtos", produtoController.cadastrarProduto);
+routes.post("/produtos", auth, produtoController.cadastrarProduto);
 
 routes.delete("/produto/:id", produtoController.deletarProduto);
 
@@ -33,6 +40,9 @@ routes.put("/produto/:id", produtoController.atualizarProduto);
 
 // adicionando a rota usuario
 routes.post("/usuarios", usuarioCreateValidation, usuariosController.registro);
+
+// adicionando a rota login
+routes.post('/login', authLoginValidation, authController.login)
 
 routes.post("/fabricantes", fabricanteController.criarFabricante);
 

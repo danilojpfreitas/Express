@@ -1,4 +1,4 @@
-// importando o modelo de produto
+// importando o modelo de produtos
 const { Produtos, Fabricantes, Categorias } = require("../models")
 
 const produtoController = {
@@ -11,6 +11,7 @@ const produtoController = {
         res.json(listaDeProdutos);
     },
     async cadastrarProduto(req, res){
+        console.log(req.user);
         // desestruturando
         const {nome, preco, quantidade, fabricante_id, categoria_id} = req.body;
 
