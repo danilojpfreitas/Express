@@ -37,4 +37,13 @@ CONSTRAINT item_produto FOREIGN KEY (produto_id) REFERENCES produtos(id),
 createdAt DATE NOT NULL,
 updatedAt DATE NOT NULL
 );
+
+CREATE TABLE usuarios (
+id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(200) NOT NULL,
+email VARCHAR(200) NOT NULL,
+senha VARCHAR(200) NOT NULL,
+createdAt DATE NOT NULL,
+updatedAt DATE NOT NULL
+);
 ```
