@@ -4,6 +4,7 @@ const CategoriaProduto = require("./CategoriaProduto");
 const Fabricantes = require("./Fabricantes");
 const Produtos = require("./Produtos");
 const Categorias = require("./Categorias");
+const Usuarios = require("./Usuarios");
 
 // relacionar para um
 Produtos.belongsTo(Fabricantes, {
@@ -32,6 +33,7 @@ module.exports = {
     Fabricantes,
     Produtos,
     Categorias,
-    CategoriaProduto
+    CategoriaProduto,
+    Usuarios
 };
 

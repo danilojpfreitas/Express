@@ -5,6 +5,14 @@ const express = require("express");
 const produtoController = require("../controllers/produtoController")
 const fabricanteController = require("../controllers/fabricanteController")
 const categoriaController = require("../controllers/categoriaController")
+const usuariosController = require("../controllers/usuariosController")
+
+// middlewares em uma unica rota
+const requestLog = require("../middlewares/requestLog");
+const bloqueio = require("../middlewares/bloqueio");
+
+// importando validations
+const usuarioCreateValidation = require("../validations/usuarios/create")
 
 // ativar o recurso de rotas
 const routes = express.Router()
@@ -15,17 +23,20 @@ routes.get("/", (req, res) => {
     res.send("Hello Word!");
 })
 
-routes.get("/produto/lista", produtoController.listarProduto);
+routes.get("/produtos", requestLog, bloqueio, produtoController.listarProduto);
 
-routes.post("/produto/criar", produtoController.cadastrarProduto);
+routes.post("/produtos", produtoController.cadastrarProduto);
 
-routes.delete("/produto/:id/deletar", produtoController.deletarProduto);
+routes.delete("/produto/:id", produtoController.deletarProduto);
 
-routes.put("/produto/:id/atualizar", produtoController.atualizarProduto);
+routes.put("/produto/:id", produtoController.atualizarProduto);
 
-routes.post("/fabricante/criar", fabricanteController.criarFabricante);
+// adicionando a rota usuario
+routes.post("/usuarios", usuarioCreateValidation, usuariosController.registro);
 
-routes.post("/categoria/criar", categoriaController.criarCategoria);
+routes.post("/fabricantes", fabricanteController.criarFabricante);
+
+routes.post("/categorias", categoriaController.criarCategoria);
 // metodo para identificacao pela URL
 routes.get("/produto/:id?/:teste", (req, res) => {
     console.log(req.params);

@@ -28,10 +28,11 @@ const produtoController = {
         // realizando por comando especial do sequelize para entidades intermediarias N para N
         await novoProduto.setCategorias(categoria)
 
-        res.json(novoProduto);
+        res.status(201).json(novoProduto);
     },
     async deletarProduto(req, res) {
-        // recebendo o parametro id, desestruturacao
+        try {
+            // recebendo o parametro id, desestruturacao
         const { id } = req.params;
 
         // metodo destroy
@@ -41,12 +42,17 @@ const produtoController = {
             },
         });
 
-        res.json("Produto Deletado");
+        res.status(204);
+        } catch(error) {
+            return res.status(500).json("Ocorreu algum problema");
+        }
     },
     async atualizarProduto(req, res) {
         // recebendo o parametro id, desestruturacao
         const { id } = req.params;
         const {nome, preco, quantidade} = req.body;
+
+        if (!id) return res.status(400).json("id não enviado");
 
         // metodo update
         const produtoAtualizado = await Produtos.update({
