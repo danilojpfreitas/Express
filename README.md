@@ -1,5 +1,5 @@
 # Express
-Aprendendo a utilizar o Express
+Aprendendo a utilizar o Express.
 
 # Banco de Dados
 
